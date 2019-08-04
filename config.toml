@@ -1,6 +1,6 @@
-baseURL = "http://example.org/"
+baseURL = "https://jibbow.com/"
 languageCode = "en-us"
-title = "My New Hugo Site"
+title = "Jibbow's Blog"
 
 theme = "tale"
-
+pygmentsCodeFences = true
