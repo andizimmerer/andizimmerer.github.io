@@ -1,10 +1,11 @@
 ---
 title: "Creating portable native applications with Mono"
 date: 2017-10-22
+summary: "While .Net projects usually require a runtime environment, the Mono projects allows us to compile a program to native code with all dependencies included. In this blog post we will explore how to do this."
 ---
 
 
-While C# is well supported on all machines running Microsoft, the [Mono][mono] project aims to bring the .NET Framework and the Common Language Runtime to other platforms and therefore enables cross platform programs written in C#.
+While C# is well supported on all machines running Windows, the [Mono][mono] project aims to bring the .NET Framework and the Common Language Runtime to other platforms and therefore enables cross platform programs written in C#.
 
 .NET programs are compiled to CIL ([common intermediate language][cil]) code. When executing such a program the CIL is piped through a JIT ([just-in-time][jit]) compiler which creates the binary code on the fly. This is similar to Java Bytecode and the JVM.
 Still, some kind of runtime environment is required on the target machine to interpret the CIL, regardless if being implemented by Microsoft or the Mono project, in order to run the compiled C# code.
