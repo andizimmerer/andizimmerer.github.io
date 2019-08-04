@@ -2,7 +2,7 @@
 title: "About Me"
 ---
 
-<img src="/about/sketch.png" alt="Sketch of me" style="width: 256px; float: left"/>
+<img src="/about/sketch-small.jpg" alt="Sketch of me" style="width: 256px; float: left"/>
 
 Hi!
 
