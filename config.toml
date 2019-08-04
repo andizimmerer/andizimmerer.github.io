@@ -4,3 +4,6 @@ title = "Jibbow's Blog"
 
 theme = "tale"
 pygmentsCodeFences = true
+
+[Params]
+Author = "Jibbow"
