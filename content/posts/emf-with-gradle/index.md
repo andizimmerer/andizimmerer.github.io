@@ -8,7 +8,7 @@ draft: true
 
 # Introduction and Overview
 
-# Prerequisits for this Tutorial
+# Prerequisits for this Tutorial 🎓
 This tutorial assumes that you already know the basics of [EMF][emf-overview], [Xtext][xtext], [QVT][qvt-o] and [Acceleo][acceleo].
 It's also good if you know some basic stuff about Ecore (see [its documentation][ecore-docs]) and metamodels (the backbone of EMF).
 See the [EMF tutorial][emf-tutorial] to get you started with the basic concepts.
@@ -33,14 +33,14 @@ Plantestic is doing the following steps to generate test cases:
     The downside is that the resulting diagrams hardly follow the official UML standard by means of semantics and they also only "look like" UML diagrams but they lack a lot of information that is usually provided when using real UML.
     But customer first means: don't force them into using something they don't need!  
     We use [Xtext][xtext] to create a parser for "our custom DSL" (=PlantUML syntax) because this gives us an output in the ECore format which allows us to easily integrate it with other EMF tools.
- 1. Because the output of Xtext is highly specific to PlantUML, we want to transform the diagram in a very generic intermediate representation.
+ 2. Because the output of Xtext is highly specific to PlantUML, we want to transform the diagram in a very generic intermediate representation.
     Think "getting rid of arrows and colors and use only their semantic information like 'what is a request'".
     We use again a tool from the EMF ecosystem: [QVT-operational][qvt-o].
     Another contentor of QVT is ATL.
- 2. Now we want to transform the very generic intermediate representation into a very specific output representation.
+ 3. Now we want to transform the very generic intermediate representation into a very specific output representation.
     Think "From semantically rich meta-objects to concrete Java classes".
     We again use QVT for this.
- 3. Now generate actual source code for the tests from the model.
+ 4. Now generate actual source code for the tests from the model.
     Because we did step (3) this is very straight forward.
     We use [Acceleo][acceleo] from the EMF world to do this.
 
@@ -105,7 +105,7 @@ The benefits of integrating Xtext, QVT-o and Acceleo directly into your build pi
    The nicest solution would be to write a gradle task that compiles the `.mtl` file to an `.emtl` file at build time and packages it within the JAR archive.
 
 
-# How we achieved our Goals
+# How we achieved our Goals 🏆
 
 Below you'll find an excerpt of our `build.gradle` with a list of all required dependencies for QVT and Acceleo.
 Most of them are directly from the Eclipse repository.
@@ -114,7 +114,18 @@ You also need to include `maven { url "https://dist.wso2.org/maven2/" }` for the
 
 <script src="https://gist.github.com/Jibbow/ae7bcae6b0d74e119d718a3080086e65.js"></script>
 
-## Xtext as a Parser Generator and Model-Generator
+## Xtext as a Parser for your Domain Specific Language (DSL)
+
+To give you an overview, the following three steps need to be done:
+
+ 1) Generate a new Xtext project which builds the parser and the `.ecore` metamodel files for you DSL
+ 2) Merge the resulting project with your current project by creating a "subproject" for your DSL.
+ 3) Add some lines of code to your original project to initialize and call the Xtext parser
+
+
+
+### 1. Create a new Xtext project from Scratch
+
 [Eclipse Modeling Tools 2018-09][eclipse-download] -> do we need modeling tools or is normal eclipse also okay?
 
 
@@ -124,25 +135,40 @@ First, install the Xtext plugin: Go to `Help → Eclipse Marketplace` and search
 
 Now, we can create a new Xtext project with the wizard. To do this, open `File → New → Other...` and choose "Xtext Project" as in the following screenshot:
 
-![Create a new Xtext project step 1: Choose "Xtext Project" as the project type](./xtext-project-setup-1.png)
+![Create a new Xtext project step 1: Choose "Xtext Project" as the project type](./xtext-project-setup-1.jpg)
 
 Click "Next" and the wizard will ask you for your project name and the name of your DSL:
 
-![Create a new Xtext project step 2: Specify a name for your project and language](./xtext-project-setup-2.png)
+![Create a new Xtext project step 2: Specify a name for your project and language](./xtext-project-setup-2.jpg)
 
 Again, click "Next" and now here comes the interesting part:  
 Untick the checkbox "Eclipse plug-in" and choose "Gradle" as your preferred build system. Furthermore, you probably want to choose "Maven/Gradle" for the source layout.  
 If you want to generte a language server for your DSL, check "Generic IDE Support". I will not cover language servers in this post.
 
-![Create a new Xtext project step 3: Choose to use Gradle as your build system](./xtext-project-setup-3.png)
+![Create a new Xtext project step 3: Choose to use Gradle as your build system](./xtext-project-setup-3.jpg)
 
 Now click finish and the wizard will create two gradle projects for you: A parent project and the actual DSL in its own project.
+
+Run `./gradlew check` in the parent project to ensure everything works.
+
+Yeah, first step is done! 🎉
+
+
+### 2. Create a Subproject in your Project that will contain the Xtext Parser
+
+
+### 3. Invoke the Xtext Parser from your Source Code
+
+
+
+
+
 
 ## QVT-o for Model-To-Model Transformations
 
 ## Acceleo for Model-To-Text Transformations
 
-# Conclusion
+# Conclusion ⚖️
 Yes, it is possible to have a nice build pipeline with EMF-Tools!
 And in hinsight it is not even that complicated after you figured out how to do it.
 The downside is that there is almost no documentation available on doing this and most resources assume you have everything running inside Eclipse.
@@ -161,7 +187,6 @@ The downside of this approach is that you don't get the benefits of a full IDE i
 [plantestic-gradlefile-acceleo]: https://github.com/FionaGuerin/plantestic/blob/master/core/build.gradle#L91 "Making Acceleo work without Eclipse"
 [plantestic-gradlefile-repositories]: https://github.com/FionaGuerin/plantestic/blob/master/core/build.gradle#L52 "Additional Maven Repositories"
 [plantestic-xtext-project]: https://github.com/FionaGuerin/plantestic/tree/master/plantuml "The Xtext sub-project"
-[plantestic-xtext-missing-line]: https://github.com/FionaGuerin/plantestic/blob/master/plantuml/src/main/java/plantuml/GeneratePumlLanguage.mwe2#L14 "Missing line in generated Xtext project"
 [plantestic-root-gradlefile]: https://github.com/FionaGuerin/plantestic/blob/master/build.gradle "The root build.gradle"
 
 [standalone-xtext]: http://www.davehofmann.de/different-ways-of-parsing-with-xtext/ "Standalone Xtext"
