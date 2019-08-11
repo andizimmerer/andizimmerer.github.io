@@ -38,7 +38,6 @@ Plantestic is doing the following steps to generate test cases:
  2. Because the output of Xtext is highly specific to PlantUML, we want to transform the diagram in a very generic intermediate representation.
     Think "getting rid of arrows and colors and use only their semantic information like 'what is a request'".
     We use again a tool from the EMF ecosystem: [QVT-operational][qvt-o].
-    Another contentor of QVT is ATL.
  3. Now we want to transform the very generic intermediate representation into a very specific output representation.
     Think "From semantically rich meta-objects to concrete Java classes".
     We again use QVT for this.
@@ -76,7 +75,7 @@ However, even if this is not a compelling reason for you, there are several othe
  - **Automated Tests**:
    You can easily write tests (e.g. with JUnit) to check your transformations.
    Specify an input, do the transformation step, check the output.
-   You should always write tests for your code ;-)
+   You should always write tests for your code 😋
  - **CI-Pipeline**:
    When following the two points above, you have a nice integration into your build pipeline.
    `gradle check` now builds your parser, checks the parser, checks the transformations and checks the output model.
@@ -85,6 +84,8 @@ However, even if this is not a compelling reason for you, there are several othe
    We were able to write some very nice End-To-End tests for "Plantestic":
    Take a `.puml` file, run the transformation pipeline on it, _dynamically compile the resulting source code_ during the test, spin up a configured mock server and run the generted test case against the mock server!
    Gosh, this is really what we needed during the project to check that everyhting works as expected!
+ - **No IDE lock-in**:
+   This is pretty much self-explanatory: This approach does not require any specific IDE (=Eclipse).
 
 
 # Limitations (Or: Reasons why you don't want to do This)
@@ -116,6 +117,7 @@ You also need to include `maven { url "https://dist.wso2.org/maven2/" }` for the
 
 <script src="https://gist.github.com/Jibbow/ae7bcae6b0d74e119d718a3080086e65.js"></script>
 
+
 ## Xtext as a Parser for your Domain Specific Language (DSL)
 
 To give you an overview, the following three steps need to be done:
@@ -144,26 +146,62 @@ Click "Next" and the wizard will ask you for your project name and the name of y
 ![Create a new Xtext project step 2: Specify a name for your project and language](./xtext-project-setup-2.jpg)
 
 Again, click "Next" and now here comes the interesting part:  
-Untick the checkbox "Eclipse plug-in" and choose "Gradle" as your preferred build system. Furthermore, you probably want to choose "Maven/Gradle" for the source layout.  
-If you want to generte a language server for your DSL, check "Generic IDE Support". I will not cover language servers in this post.
+Untick the checkbox "Eclipse plug-in" and choose "Gradle" as your preferred build system. 
+Furthermore, you probably want to choose "Maven/Gradle" for the source layout.  
+If you want to generte a language server for your DSL, check "Generic IDE Support".
+I will not cover language servers in this post.
 
 ![Create a new Xtext project step 3: Choose to use Gradle as your build system](./xtext-project-setup-3.jpg)
 
 Now click finish and the wizard will create two gradle projects for you: A parent project and the actual DSL in its own project.
 
 Run `./gradlew check` in the parent project to ensure everything works.
+This gradle task also generates the `MyDsl.ecore`.
 
-Yeah, first step is done! 🎉
+When you open the inner project under `org.xtext.example.mydsl.parent/org.xtext.example.mydsl/` you will find the following structure:
+
+![Project layout of the Xtext DSL project](./xtext-project-layout.jpg)
+
+I highlighted three files that are important:
+
+ - `MyDsl.ecore`: This file contains the metamodel of our DSL.
+   The file is generated and you should never touch this.
+   Later on, we will need to register this metamodel in the `EPackage.Registry`.
+   I will cover this further down.
+ - `GenerateMyDsl.mwe2`: This file describes the workflow how the language artifacts are built.
+   MWE stands for "Modeling Workflow Engine".
+   Here you can specify the settings you did with the wizard in the previous step and many other settings for your language as well.
+ - `MyDsl.xtext`: This file contains the actual grammar.
+
+We encountered the problem, that our grammar was too large and thus could not be built.
+To fix this issue, we had to add the following lines of code to the `.mwe2` file:
+```
+parserGenerator = {
+  antlrParam = "-Xconversiontimeout"
+  antlrParam = "40000"
+  options = {
+    ignoreCase = true
+    backtrack = true
+    memoize = true
+    classSplitting = true
+    fieldsPerClass = "300"
+    methodsPerClass= "800"
+  }
+}
+```
+The original discussion of this problem can be found here [in this post on the Eclipse forum](https://www.eclipse.org/forums/index.php/t/1086458/).
+Also have a look at [our mwe2 file][plantestic-mwe2].
 
 
 ### 2. Create a Subproject in your Project that will contain the Xtext Parser
 
+We now neew to integrate the newly created Xtext project into your existing project.
 
 ### 3. Invoke the Xtext Parser from your Source Code
 
 
 
-
+Yeah, we can now parse a file with Xtext! 🎉
 
 
 ## QVT-o for Model-To-Model Transformations
@@ -206,3 +244,5 @@ The downside of this approach is that you don't get the benefits of a full IDE i
 [plantuml]: http://plantuml.com/ "PlantUML"
 
 [eclipse-download]: https://www.eclipse.org/downloads/packages/release/2018-09/r/eclipse-modeling-tools "Eclipse Modeling Tools - Download"
+[mwe2]: https://help.eclipse.org/kepler/index.jsp?topic=%2Forg.eclipse.xtext.doc%2Fcontents%2F118-mwe-in-depth.html "Modeling Workflow Engine 2"
+[plantestic-mwe2]: https://github.com/FionaGuerin/plantestic/blob/master/plantuml/src/main/java/plantuml/GeneratePumlLanguage.mwe2 "mwe2 file of Plantestic"
