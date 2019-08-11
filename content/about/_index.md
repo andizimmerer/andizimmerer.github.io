@@ -25,7 +25,7 @@ Thanks for reading!
       <label for="form-message">Message:</label>
       <textarea name="message" id="form-message" placeholder="Write something... :-)" style="height:200px"></textarea>
     </p>
-    <p class="hidden">
+    <p style="display: none;">
       <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
     </p>
     <p style="margin-bottom: 0px;">
