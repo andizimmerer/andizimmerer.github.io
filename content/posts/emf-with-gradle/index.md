@@ -26,6 +26,8 @@ Therefore, it is desirable to generate API tests based on the specification.
 We actually did this project for a large company who approached us with exactly this problem and they were very happy with the final result.
 You can find the project [on GitHub][plantestic-github].
 
+![Illustration of Plantestic](./plantestic-overview.jpg)
+
 Plantestic is doing the following steps to generate test cases:
 
  1. Parse a UML sequence diagram written with [PlantUML][plantuml]. 
