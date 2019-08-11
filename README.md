@@ -21,3 +21,6 @@ A short primer for me because I constantly forget how to work with Hugo:
    ```
 
 
+Resources:
+
+ - [Hugo's built-in shortcodes](https://gohugo.io/content-management/shortcodes/#use-hugo-s-built-in-shortcodes)
