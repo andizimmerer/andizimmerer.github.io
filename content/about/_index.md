@@ -12,6 +12,28 @@ My name is Andreas and I am currently studying Computer Science at TU Munich. I 
 
 Thanks for reading!
 
+
+<link rel="stylesheet" href="./form.css">
+
+<div class="container" style="clear: both;">
+  <form name="Contact: jibbow.com" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <p style="text-align: left;">
+      <label for="form-email">Your Email:</label>
+      <input type="email" name="email" id="form-email" placeholder="john.doe@gmail.com"/>
+    </p>
+    <p style="text-align: left;">
+      <label for="form-message">Message:</label>
+      <textarea name="message" id="form-message" placeholder="Write something... :-)" style="height:200px"></textarea>
+    </p>
+    <p class="hidden">
+      <label>Don’t fill this out if you're human: <input name="bot-field" /></label>
+    </p>
+    <p style="margin-bottom: 0px;">
+      <button type="submit">Send</button>
+    </p>
+  </form>
+</div>
+
 <div style="color: #00000050; display:table; margin:0 auto; clear: both;">
 Made with <span style="color: #e50000;">❤</span> by Jibbow
 </div>
