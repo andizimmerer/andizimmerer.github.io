@@ -3,7 +3,10 @@ languageCode = "en-us"
 title = "Jibbow's Blog"
 
 theme = "tale"
+
+# Configure code blocks
 pygmentsCodeFences = true
+pygmentsStyle = "xcode"
 
 [Params]
 Author = "Jibbow"
