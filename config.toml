@@ -1,4 +1,4 @@
-baseURL = "http://www.jibbow.com/"
+baseURL = "https://www.jibbow.com/"
 languageCode = "en-us"
 title = "Jibbow's Blog"
 
@@ -9,4 +9,4 @@ pygmentsCodeFences = true
 pygmentsStyle = "xcode"
 
 [Params]
-Author = "Jibbow"
+Author = "Andreas"
