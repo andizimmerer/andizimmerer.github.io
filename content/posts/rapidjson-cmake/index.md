@@ -8,7 +8,7 @@ summary: "RapidJSON is a nice C++ library for parsing JSON files. If you use CMa
 
 Last time I used it, I wanted to include it with [CMake](https://cmake.org/).
 However, I struggled a little with it.
-So this post will firstly serve as a reminder for me and secondly make you hopeuflly struggle less than me.
+So this post will firstly serve as a reminder for me and secondly make you hopefully struggle less than me.
 
 # Project Layout
 
@@ -27,10 +27,6 @@ My_Project
 │   └── rapidjson.cmake
 └── ...
 ```
-
-Only relevant files for this post are depicted.
-
-Of course, your project setup might differ, but now we can talk about a common baseline.
 
 
 # Download RapidJSON via CMake
@@ -112,7 +108,7 @@ include_directories(
 Now one thing is left before we can actually use RapidJSON.
 Right now, we only tell CMake _what_ to do and not _when_ to do it.
 
-Of course, we want to add RapidJSON as a dependency to our own source code so that it will be downloaded before our code is compiled.
+Thus, we want to add RapidJSON as a dependency to our source code so that it will be downloaded before our code is compiled.
 
 Currently, our `src/local.cmake` might look like this:
 
@@ -135,7 +131,7 @@ add_dependencies(my_project rapidjson)
 ...
 ```
 
-Now CMake will first download RapidJSON and include its headers and then compile our own project.
+Now CMake will first download RapidJSON and include its headers and then compile our project.
 
 In `my_project.cc` we can now import RapidJSON!
 
