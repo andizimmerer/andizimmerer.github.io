@@ -8,11 +8,13 @@ However, I found this harder than expected! Especially if you want it to be head
 
 # Background: Serialization of Derived Classes
 
-Recently, I was working on a [benchmarking framework for block partitioning in databases][blockpartitioning] and I came across the problem of (de-)serializing user-defined derived classes of a base class in C++. While serializing is not too much of a problem (e.g. define a abstract function `virtual void serialize(std::ostream& out) = 0` in the base class and derived classes need to implement it), deserialization is much harder.
-Ultimately, I wanted every derived class to implement their own (de-)serialization functions for potential complex types. But picking the _correct_ deserialization routine when reading a file is tricky.
+Recently, I was working on a [benchmarking framework for block partitioning in databases][blockpartitioning] and I came across the problem of (de-)serializing user-defined derived classes of a base class in C++. While serializing is not too much of a problem (e.g. define an abstract function `virtual void serialize(std::ostream& out) = 0` in the base class and implement the function in the derived classes), deserialization is much harder.
+Ultimately, I wanted every derived class to implement its own (de-)serialization functions for potentially complex types. But choosing the _correct_ deserialization routine when reading a serialized file is tricky.
 
+To borrow the example from [the excellent ISO CPP article][ISOCPP], here is some code that visualizes our problem:
 
-To borrow the example from [ISO CPP][ISOCPP], here is some code that visualizes our problem:
+We have an abstract base class `Shape` and a derived class `Rectangle`.
+Our goal is to correctly deserialize all derived classes of `Shape` by picking the _correct_ concrete implementation. If we pick the _wrong_ deserialization function (e.g. `Circle` instead of `Rectangle`), we will end up with garbage.
 
 ```cpp
 class Shape {
@@ -43,32 +45,43 @@ class Rectangle : public Shape {
 };
 ```
 
-#### Some notes on the example:
+**Some notes on the example:**
 
-I personally prefer the two static methods `serialize()` and `deserialize()` in the `Shape` class so that both functions have a similar interface.
-Strictly speaking, this strongly resembles the ["factory pattern"][factorypattern], but combines the abstract _Factory_ and the _Interface_ into one class (`Shape`) and also combines the concrete implementations of _RectangleFactory_ and the concrete `Shape` _Rectangle_ into one class. It is left to the reader to figure out which function belongs to which actor in the factory pattern.
+Generally speaking, this strongly resembles the ["Factory Method Pattern"][factorypattern], but combines the abstract _Factory/Creator_ and the _Interface/Product_ into one class (`Shape`) and also combines the concrete implementations of _RectangleFactory_ and the concrete `Shape` _Rectangle_ into one class. It is left to the reader to figure out which function belongs to which actor in the factory pattern.
 
-In the following sections we will gradually build a nice solution for this and discuss why this works.
+Further, I personally prefer two static methods `serialize()` and `deserialize()` in the `Shape` class so that both functions have a similar interface (although `serialize()` could also be non-static).
+
+In the following sections we will gradually build a nice solution for this and discuss why our approach works.
 And for the busy reader, there will be a complete code example in the end 😘
 
-# Solution for the General Problem
+# Thoughts on a Solution
 
-The general idea of the solution behind this problem is easily explained: when serializing, write some sort of "class identifier" to the file. This can either be the name of the derived class or some sort of (user supplied) class identifier.
-When deserializing again, the function first reads the class identifier and then calls the deserialization function for this particular class, which will now handle the correct deserialization of the object.
+The general idea of the solution behind this problem is easily explained:
+When serializing, write some sort of _"class identifier"_ to the file before the actual data of the object.
+This might be the name of the derived class or some sort of (user supplied) class identifier.
+When deserializing again, we first read the class identifier and pick the correct derived class based on that identifier.
+Then we call the deserialization function for this particular class, which will now handle the correct deserialization of the object.
+
 A very good starting point is the [extensive description from ISO CPP about serialization][ISOCPP].
-They also have a section about this particular problem.
+It handles many caveats over serialization and also covers our current problem!
+However, our goal is to do this as nicely as possible.
 
 > Note:
-> If you are by any chance interested in how the exact same problem can be nicely solved in Rust,
+> 
+> If you are by any chance interested in how the same problem can be nicely solved in Rust,
 > have a look at [typetag][serde-typetag] from the developer of [serde][serde].
+> This is a great solution and is very similar to our approach.
 
-### How can a correct mapping between "class identifier" and the correct class be achieved?
-Without loss of generality, we will assume the name of the derived class as a class identifier.
-Usually, there will be a map from class name to class prototypes of the derived class or function pointers that will take the input stream and produce an object of the correct derived class.
-I like the idea of function pointers more, because then you don't have "partly constructed objects only used to create a full object" laying around.
+In the previous paragraph a mentioned that we "pick the correct serialization function".
+
+But **how can a correct mapping between "class identifier" and the corresponding class be achieved?**
+
+Without loss of generality, we will pick the name of the derived class as a class identifier.
+Usually, there will be a `static std::map<K, V>` from class name to class prototypes of the derived class or function pointers that will take the input stream and produce an object of the correct derived class.
+I like the idea of functions more because then we don't have "partly constructed objects only used to create a full object" laying around.
 The signature of the deserialization function's pointer would look like `Shape* (*)(std::istream&)`.
 
-For this, we can easily put a `static std::map<std::string, Shape* (*)(std::istream&)>` into the `Shape` class.
+For this, we can put a `static std::map<std::string, Shape* (*)(std::istream&)>` into the `Shape` class.
 To handle things nicely, we can alter the functions in the `Shape` class:
 
 ```cpp
@@ -76,6 +89,8 @@ class Shape {
   // <snip>
 
   static void serialize(std::ostream& out, Shape* shape) {
+    // Before we serialize the actual object,
+    // write the class identifier to the output stream.
     const std::string& class_id = shape->class_identifier();
     out.write(class_id.c_str(), class_id.size() + 1 /*terminating null*/);
 
@@ -83,30 +98,41 @@ class Shape {
   }
 
   static Shape* deserialize(std::istream& in) {
+    // Read the class identifier.
     std::string class_id;
     std::getline(in, class_id, '\0');
 
+    // Pick the correct deserialization function from the type registry
+    // by looking at the class identifier.
     auto deserialize_func = type_registry[class_id];
     Shape* derived_object = deserialize_func(in);
     return derived_object;
   }
 
+  // Type registry which maps class identifiers to deserialization functions,
+  // which produce an object of the corresponding derived class.
   static std::map<std::string, Shape* (*)(std::istream&)> type_registry_;
 };
 ```
 
-Nice, this looks quite good now! The deserialization function of the derived class doesn't even need to know that it is part of this weird problem! 😄
+Nice, this looks already quite good!
+Neither the serialization function nor the deserialization function of the derived class needs to know that they are part of this weird problem! 😄
 
-While this is already quite nice, one big open question is: how do we populate the `type_registry_`?
-Of course, we can do this per hand... okay, just kidding 😆
+While this is already quite nice, one big open question is: how do we _reliably_ populate the `type_registry_`?
+Of course, we can do this per hand and write down every derived class... okay, just kidding 😆  
+As soon as someone implements a new derived class and forgets to alter the contents _at a different location_, we can't read the file anymore.
 
+We are dealing with a more general problem here. Remember when I said that the structure closely resembles the factory pattern?
 What we want is **self-registering types in a factory**!
-This is a more general problem, but also applies to our current situation.
+
 
 # Self-Registering Classes in a Factory
 
-Luckily, there were people out there who [already looked][bfilipek] at [this problem][sacko87].
-While my solution is largely based on the ideas of these two sources, I go one step further: solve some problems in the previous approaches and also do it header-only! Excited?
+Luckily, there were people out there who [already looked][bfilipek] at [this problem][sacko87] in the past.
+While this solution is largely based on the ideas of these two sources, I go one step further:
+Solve some problems from the previous approaches and also do it header-only!
+And you even get a complete and running example in the end for free! Excited?
+Let's get started!
 
 Okay, so the idea is to create a `static bool register_type(...)` function in the `Shape` class that can be called from the derived classes and adds one entry to the `type_registry`.
 
@@ -130,9 +156,13 @@ class Shape {
 };
 ```
 
-Nice, looks useful! But think about it: How does this even help? How should we call this function? In the constructor of the derived class? This won't really help, because then types are only registered when at least one object has been created before.
+Nice, looks useful!
+But think about it: How does this even help? How should we call this function? In the constructor of the derived class?
+This won't really help, because then types are only registered when at least one object has been created before.
 
-The idea is to call the `register_type()` function from a _static context_! Why? Because then it will be called when _static objects_ are initialized at program startup and this ensures that the function is called before any useful work is done! Nice! How can we do this? By creating a `static` field inside each derived class that gets assigned the returned value from `register_type()`.
+The idea is to call the `register_type()` function from a _static context inside the derived class_!
+Why? Because then it will be called when _static objects_ are initialized at program startup and this ensures that the function is called before any useful work is done! Nice!
+How can we do this? By creating a `static` field inside each derived class that gets assigned the returned value from `register_type()`.
 
 More precisely, this would like this:
 ```cpp
@@ -148,18 +178,22 @@ class Rectangle : public Shape {
 const bool Rectangle::registered_ = Shape::register_type("Rect", &deserialize_rectangle); 
 ```
 
-When your program is started, one of the first steps is to initialize the static objects.
+When the program is started, one of the first steps is to initialize static objects.
+Even if `registered_` appears to be unused, we can be sure that it won't be optimized away, because this is [forbidden by the C++ standard][static-elimination].
 
-Thus, `registered_` will also be initialized by calling the `register_type()` function and our map in the `Shape` class is being populated, right?
+Thus, `registered_` will be initialized by calling the `register_type()` function and our map in the `Shape` class is being populated, right?
 
 Sadly, not necessarily. The chances that you end up with an uninitialized map are quite high.
-The problem is that we ran into the [_"static initialization order fiasco"_][static-fiasco], because the order in which static values are initialized is undefined.
-One of the [original posts][bfilipek] mentioned that this wouldn't happen because of "Zero initialization", but this sadly won't help us if the two classes are in different translations unit, which they probably are.
+The problem is that we run into the [_"static initialization order fiasco"_][static-fiasco] because the order in which static values are initialized is undefined when they are in different [translation units][translation-unit].
+
+One of the [original posts][bfilipek] mentioned that this wouldn't happen because of ["Zero initialization"][zero-initialization], but this sadly won't help us if the two classes are in different translations units, which they probably are.
 
 # Circumventing the Static Initialization Order Fiasco
 
 But luckily, there is [a solution to this problem][fiasco-solution]:
-If the classes are in different translation units, we can _force_ the initialization of the `type_registry_` but putting it inside a function call and call this function instead. How? By making use of `static` variables inside functions in our `Shape` class. This is also called the _Construct On First Use Idiom_.
+If the classes are in different translation units, we can _force_ the initialization of the `type_registry_` by putting it inside a function call and call this function instead.
+How? By making use of `static` variables inside functions in our `Shape` class.
+This is also called the _Construct On First Use Idiom_.
 
 ```cpp
 class Shape {
@@ -174,9 +208,10 @@ class Shape {
 };
 ```
 
-# Complete Solution
+Nice! Now we even know how to deal with random static initialization order!
+Putting it all together, we end up with the following code:
 
-Nice! Now we even know how to deal with random static initialization order! Putting it all together, we end up with the following code:
+# Complete Solution
 
 ```cpp
 #include <iostream>
@@ -259,9 +294,6 @@ const bool Rectangle::registered_ = Shape::register_type("Rect", &deserialize_re
 ```
 
 
-
-
-
 [blockpartitioning]: https://github.com/andreaskipf/blockpartitioning
 [ISOCPP]: https://isocpp.org/wiki/faq/serialization#serialize-inherit-no-ptrs
 [factorypattern]: https://en.wikipedia.org/wiki/Factory_method_pattern
@@ -271,3 +303,6 @@ const bool Rectangle::registered_ = Shape::register_type("Rect", &deserialize_re
 [sacko87]: https://gist.github.com/sacko87/3359911
 [static-fiasco]: http://www.cs.technion.ac.il/users/yechiel/c++-faq/static-init-order.html
 [fiasco-solution]: http://www.cs.technion.ac.il/users/yechiel/c++-faq/static-init-order-on-first-use.html
+[static-elimination]: http://eel.is/c++draft/basic.stc.static#2
+[translation-unit]: https://www.tutorialspoint.com/What-is-a-translation-unit-in-Cplusplus
+[zero-initialization]: https://en.cppreference.com/w/cpp/language/zero_initialization
