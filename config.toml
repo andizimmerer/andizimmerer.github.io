@@ -4,9 +4,17 @@ title = "Jibbow's Blog"
 
 theme = "tale"
 
-# Configure code blocks
-pygmentsCodeFences = true
-pygmentsStyle = "xcode"
+[markup]
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ""
+    lineNoStart = 1
+    lineNos = true
+    lineNumbersInTable = true
+    noClasses = true
+    style = "pygments"
+    tabWidth = 2
 
 [Params]
 Author = "Andreas"
