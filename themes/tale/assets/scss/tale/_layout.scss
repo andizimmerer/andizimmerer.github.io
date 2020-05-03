@@ -6,6 +6,17 @@ footer,
   width: 80%;
 }
 
+@media (max-width: 600px) {
+  main,
+  footer,
+  .nav-container {
+    display: block;
+    margin: 0 auto;
+    padding: 0 15px;
+    width: 100%;
+  }
+}
+
 .nav {
   box-shadow: 0 2px 2px -2px $shadow-color;
   overflow: auto;
