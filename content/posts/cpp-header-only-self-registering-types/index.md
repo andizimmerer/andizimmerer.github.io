@@ -72,7 +72,7 @@ However, our goal is to do this as nicely as possible.
 > have a look at [typetag][serde-typetag] from the developer of [serde][serde].
 > This is a great solution and is very similar to our approach.
 
-In the previous paragraph a mentioned that we "pick the correct serialization function".
+In the previous paragraph I mentioned that we "pick the correct serialization function".
 
 But **how can a correct mapping between "class identifier" and the corresponding class be achieved?**
 
@@ -164,7 +164,7 @@ The idea is to call the `register_type()` function from a _static context inside
 Why? Because then it will be called when _static objects_ are initialized at program startup and this ensures that the function is called before any useful work is done! Nice!
 How can we do this? By creating a `static` field inside each derived class that gets assigned the returned value from `register_type()`.
 
-More precisely, this would like this:
+More precisely, this would look like:
 ```cpp
 class Rectangle : public Shape {
   static Shape* deserialize_rectangle(std::istream& in) {
