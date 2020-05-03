@@ -16,12 +16,10 @@ theme = "tale"
   [markup.highlight]
     codeFences = true
     guessSyntax = false
-    hl_Lines = ""
-    lineNoStart = 1
     lineNos = true
     lineNumbersInTable = true
-    noClasses = true
-    style = "pygments"
+    noClasses = false
+    style = "monokai"
     tabWidth = 2
 
 [Params]
