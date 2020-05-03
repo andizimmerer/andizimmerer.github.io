@@ -9,13 +9,13 @@ footer,
 .nav-container {
   display: block;
   margin: 0 auto;
+  max-width: 800px;
   width: 80%;
 }
 
 .nav {
   box-shadow: 0 2px 2px -2px $shadow-color;
   overflow: auto;
-  font-size: 14px;
 
   &-container {
     margin: 1rem auto;
@@ -49,7 +49,6 @@ footer,
     display: inline-block;
     opacity: .6;
     padding: 0 2rem 0 0;
-    margin: 0px;
 
     &:last-child {
       padding-right: 0;
@@ -69,8 +68,6 @@ footer,
 
 @media (min-width: 600px) {
   .nav {
-    font-size: 16px;
-
     &-container {
       text-align: left;
     }

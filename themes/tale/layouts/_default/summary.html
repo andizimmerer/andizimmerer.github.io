@@ -7,7 +7,5 @@
         <p>
             {{ if isset .Params "summary" }}{{ .Params.Summary | markdownify }}{{ else }}{{ .Summary }}{{ end }}
         </p>
-
-        <p>Reading time: {{ .ReadingTime }} minutes</p>
     </div>
 </a>

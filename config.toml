@@ -4,6 +4,14 @@ title = "Jibbow's Blog"
 
 theme = "tale"
 
+[menu]
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    title = "About"
+    url = "/about/"
+    weight = 0
+
 [markup]
   [markup.highlight]
     codeFences = true

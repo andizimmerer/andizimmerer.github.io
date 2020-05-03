@@ -9,6 +9,7 @@ code {
   color: $code-color;
   font-size: 85%;
   padding: .25em .5em;
+  white-space: pre-wrap;
 }
 
 pre {
@@ -23,11 +24,11 @@ pre code {
 }
 
 .highlight {
+  background-color: $grey-3;
   border-radius: 3px;
   line-height: 1.4;
   margin: 0 0 1rem;
   padding: 1rem;
-  border-left: 3px solid $grey-2;
 
   pre {
     margin-bottom: 0;
