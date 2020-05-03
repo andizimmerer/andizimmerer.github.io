@@ -181,9 +181,10 @@ const bool Rectangle::registered_ = Shape::register_type("Rect", &deserialize_re
 When the program is started, one of the first steps is to initialize static objects.
 Even if `registered_` appears to be unused, we can be sure that it won't be optimized away, because this is [forbidden by the C++ standard][static-elimination].
 
-Thus, `registered_` will be initialized by calling the `register_type()` function and our map in the `Shape` class is being populated, right?
+Thus, `registered_` will be initialized by calling the `register_type()` function and our map in the `Shape` class is being automatically populated at program startup, right?
 
 Sadly, not necessarily. The chances that you end up with an uninitialized map are quite high.
+And even worse, this will not just result in  types not being registered, but rather in a program crash.
 The problem is that we run into the [_"static initialization order fiasco"_][static-fiasco] because the order in which static values are initialized is undefined when they are in different [translation units][translation-unit].
 
 One of the [original posts][bfilipek] mentioned that this wouldn't happen because of ["Zero initialization"][zero-initialization], but this sadly won't help us if the two classes are in different translations units, which they probably are.
