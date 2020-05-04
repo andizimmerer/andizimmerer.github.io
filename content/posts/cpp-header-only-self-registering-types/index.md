@@ -19,10 +19,11 @@ Our goal is to correctly deserialize all derived classes of `Shape` by picking t
 ```cpp
 class Shape {
  public:
-  static void serialize(std::ostream& out, Shape* shape) {
-    shape->serialize(out);  // Forward to the derived implementation.
+  static void serialize(std::ostream& out, Shape& shape) {
+    shape.serialize(out);  // Forward to the derived implementation.
   }
-  static Shape* deserialize(std::istream& in) {
+
+  static std::unique_ptr<Shape> deserialize(std::istream& in) {
     // How should we know how to correctly deserialize the object?
     // In other words: which object do we even want to create from the stream??
   }
@@ -37,11 +38,11 @@ class Rectangle : public Shape {
     // Write properties of the current Rectangle to the output stream.
   }
 
-  static Shape* deserialize(std::istream& in) {
+  static std::unique_ptr<Shape> deserialize(std::istream& in) {
     // Create a new Rectangle from the input stream.
   }
  private:
-  int64_t width_, height;
+  int64_t width_, height_;
 };
 ```
 
@@ -79,7 +80,7 @@ But **how can a correct mapping between "class identifier" and the corresponding
 Without loss of generality, we will pick the name of the derived class as a class identifier.
 Usually, there will be a `static std::map<K, V>` from class name to class prototypes of the derived class or function pointers that will take the input stream and produce an object of the correct derived class.
 I like the idea of functions more because then we don't have "partly constructed objects only used to create a full object" laying around.
-The signature of the deserialization function's pointer would look like `Shape* (*)(std::istream&)`.
+The signature of the deserialization function's pointer would look like `std::unique_ptr<Shape> (*)(std::istream&)`.
 
 For this, we can put a `static std::map<std::string, Shape* (*)(std::istream&)>` into the `Shape` class.
 To handle things nicely, we can alter the functions in the `Shape` class:
@@ -88,16 +89,16 @@ To handle things nicely, we can alter the functions in the `Shape` class:
 class Shape {
   // <snip>
 
-  static void serialize(std::ostream& out, Shape* shape) {
+  static void serialize(std::ostream& out, Shape& shape) {
     // Before we serialize the actual object,
     // write the class identifier to the output stream.
-    const std::string& class_id = shape->class_identifier();
+    const std::string& class_id = shape.class_identifier();
     out.write(class_id.c_str(), class_id.size() + 1 /*terminating null*/);
 
-    shape->serialize(out);  // Forward to the derived implementation.
+    shape.serialize(out);  // Forward to the derived implementation.
   }
 
-  static Shape* deserialize(std::istream& in) {
+  static std::unique_ptr<Shape> deserialize(std::istream& in) {
     // Read the class identifier.
     std::string class_id;
     std::getline(in, class_id, '\0');
@@ -105,13 +106,13 @@ class Shape {
     // Pick the correct deserialization function from the type registry
     // by looking at the class identifier.
     auto deserialize_func = type_registry[class_id];
-    Shape* derived_object = deserialize_func(in);
+    std::unique_ptr<Shape> derived_object = deserialize_func(in);
     return derived_object;
   }
 
   // Type registry which maps class identifiers to deserialization functions,
   // which produce an object of the corresponding derived class.
-  static std::map<std::string, Shape* (*)(std::istream&)> type_registry_;
+  static std::map<std::string, std::unique_ptr<Shape> (*)(std::istream&)> type_registry_;
 };
 ```
 
@@ -140,7 +141,7 @@ Okay, so the idea is to create a `static bool register_type(...)` function in th
 class Shape {
   // <snip>
 
-  using deserialize_func = Shape* (*)(std::istream&);
+  using deserialize_func = std::unique_ptr<Shape> (*)(std::istream&);
 
   static bool register_type(const std::string& class_id,
                             const deserialize_func factory_method) {
@@ -167,8 +168,8 @@ How can we do this? By creating a `static` field inside each derived class that 
 More precisely, this would look like:
 ```cpp
 class Rectangle : public Shape {
-  static Shape* deserialize_rectangle(std::istream& in) {
-      // ...
+  static std::unique_ptr<Shape> deserialize_rectangle(std::istream& in) {
+    // ...
   }
 
   static const bool registered_;
@@ -201,9 +202,9 @@ class Shape {
   // <snip>
 
  private:
-  static std::map<std::string, Shape* (*)(std::istream&)>& get_type_registry() {
+  static std::map<std::string, std::unique_ptr<Shape> (*)(std::istream&)>& get_type_registry() {
     // Static: One and the same instance for all function calls.
-    static std::map<std::string, Shape* (*)(std::istream&)> type_registry;
+    static std::map<std::string, std::unique_ptr<Shape> (*)(std::istream&)> type_registry;
     return type_registry;
   }
 };
@@ -218,25 +219,26 @@ Putting it all together, we end up with the following code:
 #include <iostream>
 #include <string>
 #include <map>
+#include <memory>
 
 class Shape {
   // Function pointer that takes a stream and produces an object of a derived class.
-  using deserialize_func = Shape* (*)(std::istream&);
+  using deserialize_func = std::unique_ptr<Shape> (*)(std::istream&);
 
  public:
   virtual ~Shape() = default;
 
   // Provide a high-level serialization function that stores the class_identifier.
-  static void serialize(std::ostream& out, Shape* shape) {
-    const std::string& class_id = shape->class_identifier();
+  static void serialize(std::ostream& out, Shape& shape) {
+    const std::string& class_id = shape.class_identifier();
     out.write(class_id.c_str(), class_id.size() + 1 /*terminating null*/);
-    shape->serialize(out);
+    shape.serialize(out);
   }
 
   // Provide a high-level deserialization function
   // that dispatches to the correct deserialization function based
   // on class_identifier.
-  static Shape* deserialize(std::istream& in) {
+  static std::unique_ptr<Shape> deserialize(std::istream& in) {
     std::string class_id;
     std::getline(in, class_id, '\0');
     // Look up the class_id in the type_registry
@@ -254,7 +256,7 @@ class Shape {
   static bool register_type(const std::string& class_id,
                             const deserialize_func factory_method) {
     if (get_type_registry().find(class_id) != get_type_registry().end()) {
-    std::cerr << "Class ID " << class_id << " is already used." << std::endl;
+      std::cerr << "Class ID " << class_id << " is already used." << std::endl;
       return false;
     }
     get_type_registry().insert(std::make_pair(class_id, factory_method));
@@ -277,11 +279,11 @@ class Rectangle : public Shape {
   }
 
   void serialize(std::ostream& out) const override {
-      // ...
+    // ...
   }
 
-  static Shape* deserialize_rectangle(std::istream& in) {
-      // ...
+  static std::unique_ptr<Shape> deserialize_rectangle(std::istream& in) {
+    // ...
   }
 
  private:
