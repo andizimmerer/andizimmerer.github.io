@@ -176,7 +176,7 @@ class Rectangle : public Shape {
 };
 
 // Usually we would do this in the .cpp file, but we wanted it to do header-only, right?
-const bool Rectangle::registered_ = Shape::register_type("Rect", &deserialize_rectangle); 
+const bool Rectangle::registered_ = Shape::register_type("Rectangle", &deserialize_rectangle); 
 ```
 
 When the program is started, one of the first steps is to initialize static objects.
@@ -217,18 +217,20 @@ Putting it all together, we end up with the following code:
 
 ```cpp
 #include <iostream>
-#include <string>
 #include <map>
 #include <memory>
+#include <string>
 
 class Shape {
-  // Function pointer that takes a stream and produces an object of a derived class.
+  // Function pointer that takes a stream and produces an object of a
+  // derived class.
   using deserialize_func = std::unique_ptr<Shape> (*)(std::istream&);
 
  public:
   virtual ~Shape() = default;
 
-  // Provide a high-level serialization function that stores the class_identifier.
+  // Provide a high-level serialization function that stores the
+  // class_identifier.
   static void serialize(std::ostream& out, Shape& shape) {
     const std::string& class_id = shape.class_identifier();
     out.write(class_id.c_str(), class_id.size() + 1 /*terminating null*/);
@@ -252,7 +254,8 @@ class Shape {
   // Serialize the derived class to a stream.
   virtual void serialize(std::ostream& out) const = 0;
 
-  // This function needs to be called by a derived class inside a *static* context.
+  // This function needs to be called by a derived class inside a 
+  // *static* context.
   static bool register_type(const std::string& class_id,
                             const deserialize_func factory_method) {
     if (get_type_registry().find(class_id) != get_type_registry().end()) {
@@ -271,12 +274,9 @@ class Shape {
   }
 };
 
-
 class Rectangle : public Shape {
  public:
-  std::string class_identifier() const override {
-    return "Rect";
-  }
+  std::string class_identifier() const override { return "Rectangle"; }
 
   void serialize(std::ostream& out) const override {
     // ...
@@ -293,7 +293,7 @@ class Rectangle : public Shape {
 };
 
 // Statically register the "Rectangle" class to the factory.
-const bool Rectangle::registered_ = Shape::register_type("Rect", &deserialize_rectangle);
+const bool Rectangle::registered_ = Shape::register_type("Rectangle", &deserialize_rectangle);
 ```
 
 
