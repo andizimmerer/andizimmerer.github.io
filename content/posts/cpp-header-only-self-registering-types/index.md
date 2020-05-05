@@ -8,7 +8,7 @@ However, I found this harder than expected! Especially if you want it to be head
 
 # Background: Serialization of Derived Classes
 
-Recently, I was working on a [benchmarking framework for block partitioning in databases][blockpartitioning] and I came across the problem of (de-)serializing user-defined derived classes of a base class in C++. While serializing is not too much of a problem (e.g. define an abstract function `virtual void serialize(std::ostream& out) = 0` in the base class and implement the function in the derived classes), deserialization is much harder.
+Recently, I was working on a [benchmarking framework for block partitioning in databases (currently private, but will be released anytime soon)][blockpartitioning] and I came across the problem of (de-)serializing user-defined derived classes of a base class in C++. While serializing is not too much of a problem (e.g. define an abstract function `virtual void serialize(std::ostream& out) = 0` in the base class and implement the function in the derived classes), deserialization is much harder.
 Ultimately, I wanted every derived class to implement its own (de-)serialization functions for potentially complex types. But choosing the _correct_ deserialization routine when reading a serialized file is tricky.
 
 To borrow the example from [the excellent ISO CPP article][ISOCPP], here is some code that visualizes our problem:
