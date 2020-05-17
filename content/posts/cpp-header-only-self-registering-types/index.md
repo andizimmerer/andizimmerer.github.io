@@ -297,6 +297,14 @@ const bool Rectangle::registered_ = Shape::register_type("Rectangle", &deseriali
 ```
 
 
+# Further Work
+
+One obvious downside of this approach is that derived classes need to be registered manually.
+It would be much nicer if they could be _forced_ to register.
+Following up this blog post, [Alexander van Renen][alexvanrenen] proposed a solution to this problem by introducing a new `ShapeInterface`.
+Check out [his solution on GitHub][github-alexvanrenen]!
+
+
 [blockpartitioning]: https://github.com/andreaskipf/blockpartitioning
 [ISOCPP]: https://isocpp.org/wiki/faq/serialization#serialize-inherit-no-ptrs
 [factorypattern]: https://en.wikipedia.org/wiki/Factory_method_pattern
@@ -309,3 +317,5 @@ const bool Rectangle::registered_ = Shape::register_type("Rectangle", &deseriali
 [static-elimination]: http://eel.is/c++draft/basic.stc.static#2
 [translation-unit]: https://www.tutorialspoint.com/What-is-a-translation-unit-in-Cplusplus
 [zero-initialization]: https://en.cppreference.com/w/cpp/language/zero_initialization
+[github-alexvanrenen]: https://gist.github.com/alexandervanrenen/c09af12a075a53eba9b6a07d992ed8db
+[alexvanrenen]: https://www.linkedin.com/in/alexander-van-renen-5133a280/
