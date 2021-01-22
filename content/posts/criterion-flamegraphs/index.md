@@ -58,11 +58,6 @@ We only need to implement the [`criterion::profiler::Profiler`][criterion-profil
 
 
 ```rust
-//! To allow performance counting on Linux for unprivileged users, run
-//! ```bash
-//! echo -1 | sudo tee /proc/sys/kernel/perf_event_paranoid
-//! ```
-
 use std::{fs::File, os::raw::c_int, path::Path};
 
 use criterion::profiler::Profiler;
