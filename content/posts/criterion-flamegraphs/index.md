@@ -1,5 +1,5 @@
 ---
-title: "Flamegraphs for Your Benchmarks with Criterion"
+title: "Flamegraphs for Your Benchmarks in Rust"
 date: 2021-01-22
 summary: "Quick tip on how to automatically generate flamegraphs for every Criterion benchmark with pprof and in-process profiling hooks."
 ---
@@ -7,6 +7,8 @@ summary: "Quick tip on how to automatically generate flamegraphs for every Crite
 This is just a short post about something I recently discovered in the Rust ecosystem:
 
 `Criterion` + `pprof` = 🔥
+
+If you have a Medium subscription and want to support me, you can [read this post on Medium][medium-post].
 
 
 # Introduction
@@ -226,3 +228,4 @@ Cool feature. I really like it 😊
 [criterion-custom-test-framework]: https://bheisler.github.io/criterion.rs/book/user_guide/custom_test_framework.html
 [criterion-unrecognized-option]: https://bheisler.github.io/criterion.rs/book/faq.html#cargo-bench-gives-unrecognized-option-errors-for-valid-command-line-options
 [criterion-profiler-trait]: https://docs.rs/criterion/*/criterion/profiler/trait.Profiler.html
+[medium-post]: https://jibbow.medium.com/automatic-flamegraphs-for-benchmarks-with-criterion-f8e59499cc2a
