@@ -38,6 +38,9 @@ And here comes another cool Rust library into play: [`pprof`][pprof] with the `f
 The best of all: It even supports generating flamegraphs with the feature flag `flamegraph`.
 
 
+Let's directly dive in and create a `pprof` integration for Criterion!
+
+
 # Setup
 
 We will now create a custom profiler for `criterion` with `pprof` that will print flamegraphs for each benchmark.
@@ -179,6 +182,7 @@ criterion_group!{
 }
 ```
 
+Now that we have set up our custom profiler we can actually use it for our benchmarks as described in the next section.
 
 
 # Running the Benchmarks and Getting Results
