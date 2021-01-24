@@ -1,5 +1,5 @@
 ---
-title: "Flamegraphs for Your Benchmarks in Rust"
+title: "Automatic Flamegraphs for Benchmarks in Rust"
 date: 2021-01-22
 summary: "Quick tip on how to automatically generate flamegraphs for every Criterion benchmark with pprof and in-process profiling hooks."
 ---
