@@ -11,6 +11,12 @@ This is just a short post about something I recently discovered in the Rust ecos
 If you have a Medium subscription and want to support me, you can [read this post on Medium][medium-post].
 
 
+------
+
+**Update**: Based on this blog post, `pprof` now ships with a [custom profiler for Criterion][pprof-criterion-profiler] since version 0.4.2!
+Make sure to check out [this example][pprof-criterion-example] and enable `"criterion"` and `"flamegraph"` crate features.
+
+
 # Introduction
 
 [Criterion][criterion] is a well-known and often-used benchmarking framework in the Rust ecosystem.
@@ -229,3 +235,5 @@ Cool feature. I really like it 😊
 [criterion-unrecognized-option]: https://bheisler.github.io/criterion.rs/book/faq.html#cargo-bench-gives-unrecognized-option-errors-for-valid-command-line-options
 [criterion-profiler-trait]: https://docs.rs/criterion/*/criterion/profiler/trait.Profiler.html
 [medium-post]: https://jibbow.medium.com/automatic-flamegraphs-for-benchmarks-with-criterion-f8e59499cc2a
+[pprof-criterion-profiler]: https://docs.rs/pprof/0.4.2/pprof/criterion/struct.PProfProfiler.html
+[pprof-criterion-example]: https://github.com/tikv/pprof-rs/blob/v0.4.2/examples/criterion.rs
