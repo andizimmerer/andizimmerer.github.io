@@ -15,14 +15,17 @@ This spring (2021), I had the pleasure to contribute a major part of the new cop
 
 Before I applied to the [LFX Mentorship Program](https://mentorship.lfx.linuxfoundation.org/), I had only contributed minor stuff to various open-source projects in my free time, like enhancing the documentation, fixing some small issues, and so on. While this was certainly a plus when I applied to TiKV, it is by no means required! The LFX Mentorship Program is a perfect start into the world of open-source software and the community around it :)
 
-Oftentimes I hear from other students that it's hard to get started with open-source development; sometimes people don't feel that they have the required skills or knowledge. You might not be familiar with all technologies being used in a project or you don't feel you are proficient enough with the main programming language of the project. But fear not: don't block yourself by telling you that you can't start for various reasons, just start! Contributing to open-source projects is the *perfect* opportunity to learn new technologies and get better at programming because you'll get valuable feedback that you would otherwise not get. Start small by reporting bugs or other issues. Then maybe, if you are up for a challenge, ask the maintainers if you could fix a certain issue with their help. Then create your first PR, get feedback, refine your code, and eventually your code will get merged! You will feel great, and maybe you'll pick up the next, a bit bigger issue. After all, it's a fun journey and not a one-stop drive-through.
+Oftentimes I hear from other students that it's hard to get started with open-source development; sometimes people don't feel that they have the required skills or knowledge. You might not be familiar with all technologies being used in a project or you don't feel you are proficient enough with the main programming language of the project. But fear not: don't block yourself by finding unnecessary excuses, just start! Contributing to open-source projects is the *perfect* opportunity to learn new technologies and get better at programming because you'll receive valuable feedback that you will not find easily elsewhere. Start small by reporting bugs or other issues. If you are up for a challenge, ask the maintainers if you could fix a certain issue with their help. Then create your first PR, get feedback, refine your code, and eventually your code will get merged! You will feel great, and maybe you'll pick up perhaps next time you'll pick a slightly bigger issue. After all, it's a fun journey and not a one-stop drive-through.
 
-Overall, as I've said before, the LFX Mentorship Program is a perfect opportunity to get started with open-source software development.
-
+Overall, the LFX Mentorship Program is a perfect opportunity to get started with open-source software development.
 
 I first heard about the LFX program on Twitter where TiKV posted their coprocessor challenge.
 
-I was immediately hooked when I read the Tweet, because:
+
+{{< tweet 1357043353360162817 >}}
+
+
+I was immediately hooked when I read the tweet, because:
 
  * I *love* database internals! I took almost all courses offered at my university about the design and implementation of database systems including transactional theory.
  * I never had the chance to work on a production-quality database system.
@@ -60,7 +63,7 @@ And because TiKV is used as the storage layer of an SQL-compatible database, the
 And this is exactly what a "coprocessor" makes possible: it provides a defined set of operators (like filters, mappings, count, sum, ...) that can be executed directly on the storage server, like a simplified query engine. It can even do aggregates, but of course, the individual results of every node need to be combined in the end.
 And this is also exactly what TiKV and most other database systems are currently doing.
 
-But now, we want to take this one step further. A few years ago, Google came up with a "pluggable coprocessor" framework for BigTable (see [Jeff Dean's talk at LADIS '09, slide 66-67](https://de.scribd.com/doc/21631448/Dean-Keynote-Ladis2009)). It's not exposed to the user, so unfortunately you can't use it, but they use it internally. The idea is that you can deploy *arbitrary* programs that are run directly on storage nodes! This can save a lot of network bandwidth and utilize the existing hardware resources of storage nodes. This means that we go from *a fixed set of provided operators* that can be executed on storage nodes to *arbitrary code*.
+However, we want to take this one step further. A few years ago, Google came up with a "pluggable coprocessor" framework for BigTable (see [Jeff Dean's talk at LADIS '09, slide 66-67](https://de.scribd.com/doc/21631448/Dean-Keynote-Ladis2009)). It's not exposed to the user, so unfortunately you can't use it, but they use it internally. The idea is that you can deploy *arbitrary* programs that are run directly on storage nodes! This can save a lot of network bandwidth and utilize the existing hardware resources of storage nodes. This means that we go from *a fixed set of provided operators* that can be executed on storage nodes to *arbitrary code*.
 
 How does this look like? You first develop a "coprocessor" that follows a certain interface for the database. The coprocessor has direct data access (so you have to be careful not to mess things up). Then you deploy the "coprocessor plugin" to the database. After it has been activated, you can send requests to the coprocessor, the coprocessor processes the request and returns the desired result. But because we are dealing with a *distributed* database, you only get results from individual nodes; so you might need to merge them.
 
@@ -76,10 +79,10 @@ And now, because of the LFX Mentorship Program, TiKV *also allows you to develop
 
 As mentioned before, some projects might have their own application process.
 This was also the case for TiKV.
-For TiKV, I had to solve one task out of two task groups and open a pull request with my solution. It was possible to choose which task I wanted to complete (only one was necessary). However, because the problems were small and quite fun, I did some more. This certainly helped for my application as well.
+For TiKV, I had to complete one task from a given list and open a pull request with my solution. It was possible to choose which task I wanted to complete (only one was necessary). However, because the problems were small and quite fun, I did some more. This certainly helped for my application as well.
 
-The maintainers did choose the challenges very carefully because all tasks were highly relevant for the LFX project later on.
-The tasks were actual issues from the TiKV repository and the pull requests were actually merged upstream and deployed into production. So that was already the first meaningful impact and the program hasn't even started!
+The maintainers did choose the challenges very carefully because all of them were highly relevant for the LFX project later on.
+The tasks were actual issues from the TiKV repository and the pull requests were actually merged upstream and deployed into production. So that was already the first meaningful impact and the program hadn't even started!
 
 I also had to join the [TiKV Slack](https://slack.tidb.io/invite?team=tikv-wg&channel=general). The maintainers created a specific channel where applicants could ask for help: How to setup the development environment, how everything works, and so on... The people were very helpful and responded quickly.
 
@@ -89,12 +92,12 @@ A few days after the application deadline I got an informal private message via 
 At the very beginning, I had one welcome call with my mentors where we talked about the outline and scope of the project.
 Throughout the three months of the project, most of our communication and discussion were via Slack or GitHub issues. This worked exceptionally well for my mentors and me; and as far as I can tell, they were very happy with my work.
 
-In the first week, we created a shared document where we wrote down the individual tasks in more detail based on the [corresponding RFC for the new coprocessor](https://github.com/andylokandy/rfcs/blob/plugin/text/2021-02-24-coprocessor-plugin.md).
+During the first week, we created a shared document where we wrote down the individual tasks in more detail based on the [corresponding RFC for the new coprocessor](https://github.com/andylokandy/rfcs/blob/plugin/text/2021-02-24-coprocessor-plugin.md).
 I also created a [roadmap issue](https://github.com/tikv/tikv/issues/9747) on GitHub where we could easily keep track of the tasks that have already been finished and the tasks that are still open.
 As you can see in the roadmap issue, the project involved opening many PRs, each of them was carefully reviewed.
 
 Overall, I learned quite a lot about dynamic library loading, improved my programming skills with Rust, and deepened my knowledge about databases and distributed systems. All thanks to my inspiring and helpful mentors [Andy Lok](https://github.com/andylokandy) and [Alex Chi](https://github.com/skyzh)!
 
-All in all, I can only highly recommend the LFX Mentorship Program and TiKV to everyone!
+All in all, I can highly recommend the LFX Mentorship Program and TiKV to everyone!
 
 Oh, and the best part of all: **It just feels great to contribute to awesome open-source projects and become part of the community!**
