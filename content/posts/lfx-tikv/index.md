@@ -5,7 +5,7 @@ summary: "I had the pleasure the work on TiKV, a distributed key-value store in 
 ---
 
 
-I am a graduate student in the department of computer science at the Technical University of Munich, Germany.
+I am a graduate student in the department of computer science at the Technical University of Munich (TUM), Germany.
 This spring (2021), I had the pleasure to contribute a major part of the new coprocessor framework to [TiKV](https://github.com/tikv/tikv) under the LFX Mentorship Program together with my mentors [Andy Lok](https://github.com/andylokandy) and [Alex Chi](https://github.com/skyzh).
 
 
