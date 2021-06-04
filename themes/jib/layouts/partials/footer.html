@@ -1,0 +1,18 @@
+<footer>
+	<div>
+		<ul class="list-unstyled social-links">
+		{{ range .Site.Params.social }}
+        	<li class="mb-3">
+				<a class="text-dark" href="{{ .link | safeURL }}" title="{{ .title }}">
+					<span>
+						<i class="{{ .icon }}"></i>
+					</span>
+				</a>
+			</li>
+        {{ end }}
+		</ul>
+	</div>
+	<div>
+	&copy; <time datetime="{{ now }}">{{ now.Format "2006" }}</time> Andreas Zimmerer.
+	</div>
+</footer>

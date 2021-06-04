@@ -1,0 +1,8 @@
+[writtenBy]
+other = "Escrito por"
+
+[on]
+other = "el"
+
+[publishdate]
+other = "{{ .PublishDate.Day }} de {{ index $.Site.Data.months_es (printf \"%d\" .PublishDate.Month) }} de {{ .PublishDate.Year }}"

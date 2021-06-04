@@ -1,0 +1,76 @@
+// Colors
+$themes: (
+  light: (
+    background: #fff,
+    default-color: #555,
+    default-shade: #353535,
+    default-tint: #aaa,
+    grey-1: #979797,
+    grey-2: #e5e5e5,
+    grey-3: #f9f9f9,
+    white: #fff,
+    link: #4a9ae1,
+    shadow-color: rgba(0, 0, 0, .2),
+    code-color: #bf616a,
+    code-background: #f9f9f9,
+    twitter-color: #000,
+    twitter-background: #fff,
+  ),
+  dark: (
+    background: #2d333b,
+    default-color: rgb(219, 219, 219),
+    default-shade: #bebebe,
+    default-tint: #aaa,
+    grey-1: #979797,
+    grey-2: #e5e5e5,
+    grey-3: #505050,
+    white: #000,
+    link: #cf9b2b,
+    shadow-color: rgba(0, 0, 0, .2),
+    code-color: #bf616a,
+    code-background: #2a2a2a,
+    twitter-color: #fff,
+    twitter-background: #15202b,
+  ),
+);
+
+@mixin themed( $themes: $themes ) {
+  @each $theme, $map in $themes {
+
+    .theme-#{$theme} & {
+      $theme-map: () !global;
+      @each $key, $submap in $map {
+        $value: map-get(map-get($themes, $theme), '#{$key}');
+        $theme-map: map-merge($theme-map, ($key: $value)) !global;
+      }
+
+      @content;
+      $theme-map: () !global;
+    }
+
+  }
+}
+
+@function t($key) {
+  @return map-get($theme-map, $key);
+}
+
+
+// Fonts
+$serif-primary: 'Libre Baskerville', 'Times New Roman', Times, serif;
+$serif-secondary: Palatino, 'Palatino LT STD', 'Palatino Linotype', 'Book Antiqua', 'Georgia', serif;
+$sans-serif: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, sans-serif;
+$monospaced: Menlo, Monaco, monospace;
+$icon-font: 'themify';
+
+@mixin box-sizing($type: border-box) {
+  -webkit-box-sizing: $type;
+     -moz-box-sizing: $type;
+          box-sizing: $type;
+}
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+     -moz-transition: $args;
+          transition: $args;
+}

@@ -1,0 +1,153 @@
+.post {
+  padding: 3rem 0;
+
+  &-info {
+    font-family: $serif-secondary;
+    letter-spacing: 0.5px;
+    text-align: center;
+
+    @include themed {
+      color: t('default-tint');
+    }
+
+    span {
+      font-style: italic;
+    }
+  }
+
+  &-title {
+    font-family: $sans-serif;
+    font-size: 3.3rem;
+    margin: 1rem 0;
+    text-align: center;
+
+    @include themed {
+      color: t('default-shade');
+    }
+  }
+
+  @media (max-width: 600px) {
+    &-title {
+      font-size: 2.5rem;
+    }
+  }
+
+  &-line {
+    display: block;
+    margin: 0 auto 3rem;
+    width: 4rem;
+
+    @include themed {
+      border-top: 0.4rem solid t('default-shade');
+    }
+  }
+
+  p {
+    margin: 0 0 1rem;
+    text-align: justify;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  // Images with the {{< figure >}} shortcode.
+  figure {
+    text-align: center;
+
+    img {
+      display: inline-block;
+      max-width: 100%;
+      background-color: #fff;
+    }
+
+    &.transparent img {
+      background-color: transparent;
+    }
+
+    figcaption * {
+      text-align: center;
+      font-family: $sans-serif;
+      font-size: 0.9rem;
+      font-style: normal;
+
+      @include themed {
+        color: t('default-tint');
+      }
+    }
+  }
+
+  // Images included with markdown syntax.
+  img {
+    display: block;
+    max-width: 100%;
+  }
+
+  img[src$='#floatleft']
+  {
+    float: left;
+  }
+
+  img[src$='#floatright']
+  {
+    float: right;
+  }
+
+  // CSS for making emoji inline
+  img.emoji {
+    display: inline-block;
+    left: 0;
+    transform: none;
+    width: 1rem;
+    height: 1rem;
+    vertical-align: text-top;
+    padding: 0;
+    margin: 0;
+  }
+
+  blockquote {
+    margin: .8rem 0;
+    padding: .5rem 1rem;
+
+    @include themed {
+      color: t('grey-1');
+      border-left: .25rem solid t('grey-2');
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: 600px) {
+      padding: 0 5rem 0 1.25rem;
+    }
+  }
+
+  blockquote.twitter-tweet {
+    padding: 1em;
+    font-family: $sans-serif;
+    border-color: #1da1f2;
+    border-width: 0 .25rem;
+    border-style: solid;
+    border-radius: .25rem;
+
+    @include themed {
+      color: t('twitter-color');
+      background-color: t('twitter-background');
+    }
+  }
+
+  blockquote.twitter-tweet::after {
+    margin-left: .5em;
+    background-image: url('https://upload.wikimedia.org/wikipedia/de/9/9f/Twitter_bird_logo_2012.svg');
+    background-size: 1.1em 1.1em;
+    display: inline-block;
+    width: 1.1em; 
+    height: 1.1em;
+    content: "";
+  }
+
+  .highlight {
+    margin: 0 0 1rem;
+  }
+}

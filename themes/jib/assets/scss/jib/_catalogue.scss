@@ -1,0 +1,51 @@
+.catalogue {
+  &-item {
+    border-bottom: 1px solid t('grey-2');
+    display: block;
+    padding: 2rem 0;
+
+    @include themed {
+      color: t('default-color');
+    }
+
+    &:hover .catalogue-line,
+    &:focus .catalogue-line {
+      width: 5rem;
+    }
+
+    &:last-child {
+      border: 0;
+    }
+  }
+
+  &-time {
+    font-family: $serif-secondary;
+    letter-spacing: .5px;
+
+    @include themed {
+      color: t('default-tint');
+    }
+  }
+
+  &-title {
+    display: block;
+    font-family: $sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    margin: .5rem 0;
+
+    @include themed {
+      color: t('default-shade');
+    }
+  }
+
+  &-line {
+    @include transition(all .3s ease-out);
+    display: block;
+    width: 2rem;
+
+    @include themed {
+      border-top: .2rem solid t('default-shade');
+    }
+  }
+}

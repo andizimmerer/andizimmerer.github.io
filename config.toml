@@ -2,7 +2,7 @@ baseURL = "https://www.jibbow.com/"
 languageCode = "en-us"
 title = "Jibbow's Blog"
 
-theme = "tale"
+theme = "jib"
 
 [menu]
   [[menu.main]]
@@ -22,5 +22,27 @@ theme = "tale"
     style = "monokai"
     tabWidth = 2
 
-[Params]
+[params]
 Author = "Andreas"
+
+
+
+[[params.social]]
+title = "Follow me on Twitter"
+icon = "ti-twitter-alt" # themify icon : https://themify.me/themify-icons
+link = "https://twitter.com/_jibbow"
+
+[[params.social]]
+title = "GitHub"
+icon = "ti-github" # themify icon : https://themify.me/themify-icons
+link = "https://github.com/Jibbow"
+
+[[params.social]]
+title = "LinkedIn"
+icon = "ti-linkedin" # themify icon : https://themify.me/themify-icons
+link = "https://www.linkedin.com/in/andreas-zimmerer/"
+
+[[params.social]]
+title = "Subscribe via RSS"
+icon = "ti-rss" # themify icon : https://themify.me/themify-icons
+link = "https://www.jibbow.com/index.xml"
