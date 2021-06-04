@@ -9,7 +9,7 @@ I am a graduate student in the department of computer science at the Technical U
 This spring (2021), I had the pleasure to contribute a major part of the new coprocessor framework to [TiKV](https://github.com/tikv/tikv) under the LFX Mentorship Program together with my mentors [Andy Lok](https://github.com/andylokandy) and [Alex Chi](https://github.com/skyzh).
 
 
-{{< figure src="lfx.svg" alt="LFX Mentorship Program logo" width="400px">}}
+{{< figure src="lfx.svg" caption="LFX Mentorship Program logo" width="400px" >}}
 
 # Background
 
