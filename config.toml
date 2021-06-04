@@ -45,4 +45,4 @@ link = "https://www.linkedin.com/in/andreas-zimmerer/"
 [[params.social]]
 title = "Subscribe via RSS"
 icon = "ti-rss" # themify icon : https://themify.me/themify-icons
-link = "https://www.jibbow.com/index.xml"
+link = "/index.xml"
