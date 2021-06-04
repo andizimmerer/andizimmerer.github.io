@@ -4,8 +4,8 @@
 	<meta name="color-scheme" content="dark light">
 	{{- if .IsHome }}
 		<meta name="description" content="{{ .Site.Params.Description }}">
-	{{- else if .Description }}
-		<meta name="description" content="{{ .Description }}">
+	{{- else if .Summary }}
+		<meta name="description" content="{{ .Summary }}">
 	{{- end }}
 
 	<title>{{- if .IsHome }}{{ .Site.Title }}{{- else }}{{ .Title }} &middot; {{ .Site.Title }}{{- end }}</title>

@@ -4,6 +4,10 @@ title = "Jibbow's Blog"
 
 theme = "jib"
 
+[params]
+author = "Andreas"
+description = "Jibbow's personal blog about programming and other weird stuff."
+
 [menu]
   [[menu.main]]
     identifier = "about"
@@ -21,10 +25,6 @@ theme = "jib"
     noClasses = false
     style = "monokai"
     tabWidth = 2
-
-[params]
-Author = "Andreas"
-
 
 
 [[params.social]]
