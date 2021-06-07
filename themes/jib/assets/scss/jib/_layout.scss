@@ -115,10 +115,11 @@ footer {
 
 
 .kofi-info {
-  right: 140px;
-  bottom: 100px;
+  right: 120px;
+  top: 40px;
   position: fixed;
   font-family: $sans-serif;
+  z-index: 9999;
 }
 
 #kofi-button {
