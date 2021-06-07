@@ -8,6 +8,7 @@ placeholder.
     window.onscroll = function(ev) {
     if ((window.innerHeight + window.pageYOffset) >= document.body.offsetHeight) {
         document.getElementById('kofi-button').classList.add('mfp-ready');
+        document.getElementById('kofi-speechbubble').classList.add('visible');
     }
 };
 </script>
@@ -20,5 +21,8 @@ placeholder.
                 <img src="/images/ko-fi-round.png" alt="Buy me a coffee via ko-fi.com" width="60px"/>
             </a>
         </div>
+    </div>
+    <div id="kofi-speechbubble">
+        Buy me a coffee!
     </div>
 </div>

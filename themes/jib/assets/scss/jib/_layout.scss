@@ -115,42 +115,62 @@ footer {
 
 
 .kofi-info {
-  right: 120px;
-  top: 40px;
-  position: fixed;
+  right      : 120px;
+  top        : 40px;
+  position   : fixed;
   font-family: $sans-serif;
-  z-index: 9999;
+  z-index    : 9999;
 }
 
 #kofi-button {
   position: absolute;
-  width: 60px;
+  width   : 60px;
+}
+
+#kofi-speechbubble {
+  position        : absolute;
+  width           : 140px;
+  text-align      : center;
+  top             : 75px;
+  left            : -40px;
+  background-color: khaki;
+  border-radius   : 0.2em;
+  color           : #000;
+  padding         : 2px;
+  opacity         : 0;
+
+  &:after {
+    content     : '';
+    position    : absolute;
+    border-style: solid;
+    border-width: 0 15px 10px;
+    border-color: khaki transparent;
+    display     : block;
+    width       : 0;
+    top         : -10px;
+    left        : 55px;
+  }
+
+  &.visible {
+    transition: all 1s ease-in-out;
+    opacity   : 1;
+  }
 }
 
 .mfp-newspaper {
-  
+
   /* start state */
   .mfp-with-anim {
-    opacity: 0;
-    -webkit-transition: all 0.2s ease-in-out; 
+    opacity   : 0;
     transition: all 0.4s;
-    
-    transform: scale(0) rotate(500deg);
+    transform : scale(0) rotate(500deg);
   }
-  
-  &.mfp-bg {
-    opacity: 0;
-	  transition: all 0.5s;
-  }
-  
+
   /* animate in */
   &.mfp-ready {
     .mfp-with-anim {
-      opacity: 1;
+      opacity  : 1;
       transform: scale(1) rotate(0deg);
-    }
-    &.mfp-bg {
-      opacity: 1.0;
     }
   }
 }
