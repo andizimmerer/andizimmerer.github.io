@@ -67,11 +67,11 @@ A very good starting point is the [extensive description from ISO CPP about seri
 It handles many caveats over serialization and also covers our current problem!
 However, our goal is to do this as nicely as possible.
 
-> Note:
-> 
-> If you are by any chance interested in how the same problem can be nicely solved in Rust,
-> have a look at [typetag][serde-typetag] from the developer of [serde][serde].
-> This is a great solution and is very similar to our approach.
+{{< notice note >}}
+If you are by any chance interested in how the same problem can be nicely solved in Rust,
+have a look at [typetag](https://github.com/dtolnay/typetag) from the developer of [serde](https://github.com/serde-rs/serde).
+This is a great solution and is very similar to our approach.
+{{< /notice >}}
 
 In the previous paragraph I mentioned that we "pick the correct serialization function".
 
@@ -308,8 +308,6 @@ Check out [his solution on GitHub][github-alexvanrenen]!
 [blockpartitioning]: https://github.com/andreaskipf/blockpartitioning
 [ISOCPP]: https://isocpp.org/wiki/faq/serialization#serialize-inherit-no-ptrs
 [factorypattern]: https://en.wikipedia.org/wiki/Factory_method_pattern
-[serde]: https://github.com/serde-rs/serde
-[serde-typetag]: https://github.com/dtolnay/typetag
 [bfilipek]: https://www.bfilipek.com/2018/02/factory-selfregister.html
 [sacko87]: https://gist.github.com/sacko87/3359911
 [static-fiasco]: http://www.cs.technion.ac.il/users/yechiel/c++-faq/static-init-order.html
