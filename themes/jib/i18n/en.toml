@@ -6,3 +6,13 @@ other = "on"
 
 [publishdate]
 other = "{{ .PublishDate.Format \"January 2, 2006\" }}"
+
+
+[warning]
+other = "Warning"
+[note]
+other = "Note"
+[info]
+other = "Info"
+[tip]
+other = "Tip"

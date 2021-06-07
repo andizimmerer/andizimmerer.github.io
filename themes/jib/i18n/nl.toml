@@ -1,8 +1,0 @@
-[writtenBy]
-other = "Geschreven door"
-
-[on]
-other = "op"
-
-[publishdate]
-other = "{{ .PublishDate.Day }} {{ index $.Site.Data.months_nl (printf \"%d\" .PublishDate.Month) }} {{ .PublishDate.Year }}"

@@ -6,3 +6,13 @@ other = "le"
 
 [publishdate]
 other = "{{ .PublishDate.Day }} {{ index $.Site.Data.months_fr (printf \"%d\" .PublishDate.Month) }} {{ .PublishDate.Year }}"
+
+
+[warning]
+other = "Avertissement"
+[note]
+other = "Remarque"
+[info]
+other = "Information"
+[tip]
+other = "Astuce"
