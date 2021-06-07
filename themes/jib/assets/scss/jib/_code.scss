@@ -2,14 +2,14 @@
 // Parent must not have `.chroma`, otherwise we select line numbers in code blocks.
 // Also `code` itself should not have the `data-lang` attribute,
 // because otherwise it's a code block.
-:not(.chroma) > code:not([data-lang]) {
+:not(.chroma)>code:not([data-lang]) {
   border-radius: 3px;
-  font-size: 85%;
-  padding: .25em .5em;
-  font-family: $monospaced;
+  font-size    : 85%;
+  padding      : .25em .5em;
+  font-family  : $monospaced;
 
   @include themed {
-    color: t('code-color');
+    color           : t('code-color');
     background-color: t('code-background');
   }
 }
@@ -31,21 +31,21 @@
 
     // Make sure numbers aren't selectable
     -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
+    -moz-user-select   : none;
+    user-select        : none;
   }
 
   // Code section
   pre.chroma {
-    margin: 0;
+    margin          : 0;
     background-color: transparent;
   }
 
   // Code layout
   table.lntable {
-    display: table;
+    display     : table;
     table-layout: fixed;
-    width: 100%;
+    width       : 100%;
 
     td {
       // Make sure line numbers and code align even if there is a scrollbar for the code.
@@ -59,7 +59,7 @@
 
     // Code is scrollable of too wide.
     td:last-child .chroma {
-      overflow-x: auto;
+      overflow-x     : auto;
       scrollbar-width: thin;
       scrollbar-color: rgba(15, 15, 15, 0.6) transparent;
     }

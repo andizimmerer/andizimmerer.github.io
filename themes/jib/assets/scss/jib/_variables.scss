@@ -34,13 +34,17 @@ $themes: (
   ),
 );
 
-@mixin themed( $themes: $themes ) {
-  @each $theme, $map in $themes {
+@mixin themed($themes: $themes) {
+
+  @each $theme,
+  $map in $themes {
 
     .theme-#{$theme} & {
       $theme-map: () !global;
-      @each $key, $submap in $map {
-        $value: map-get(map-get($themes, $theme), '#{$key}');
+
+      @each $key,
+      $submap in $map {
+        $value    : map-get(map-get($themes, $theme), '#{$key}');
         $theme-map: map-merge($theme-map, ($key: $value)) !global;
       }
 
@@ -65,12 +69,12 @@ $icon-font: 'themify';
 
 @mixin box-sizing($type: border-box) {
   -webkit-box-sizing: $type;
-     -moz-box-sizing: $type;
-          box-sizing: $type;
+  -moz-box-sizing   : $type;
+  box-sizing        : $type;
 }
 
 @mixin transition($args...) {
   -webkit-transition: $args;
-     -moz-transition: $args;
-          transition: $args;
+  -moz-transition   : $args;
+  transition        : $args;
 }
