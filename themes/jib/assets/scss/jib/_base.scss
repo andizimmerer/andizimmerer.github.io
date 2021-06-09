@@ -13,7 +13,6 @@ body {
   padding    : 0;
   font-family: $serif-primary;
   font-size  : 14px;
-  overflow-y : scroll;
 
   @include themed {
     background-color: t('background');
