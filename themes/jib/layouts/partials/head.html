@@ -15,7 +15,9 @@
 	{{- $cssTarget		:= "css/style.css" }}
 	{{- $cssOptions		:= cond ($inServerMode) (dict "targetPath" $cssTarget "enableSourceMap" true) (dict "targetPath" $cssTarget "outputStyle" "compressed") }}
 	{{- $style			:= resources.Get "scss/jib.scss" | toCSS $cssOptions }}
-	<link rel="stylesheet" href="{{ $style.RelPermalink }}">
+	<!-- inline critical CSS to improve Lighthouse score -->
+	<style type="text/css">{{ $style.Content | safeCSS }}</style>
+
 	<link rel="stylesheet" href="{{ "css/fonts.css" | relURL }}">
 	<link rel="stylesheet" type="text/css" id="syntax-style">
 	<link rel="stylesheet" href="{{ "css/themify-icons.css" | relURL }}">
