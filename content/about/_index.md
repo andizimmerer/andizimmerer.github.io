@@ -2,7 +2,7 @@
 title: "About Me"
 ---
 
-{{< figure src="/about/sketch-small.png#floatleft" alt="Sketch of me" width="256px" class="transparent" >}}
+{{< figure src="/about/sketch-small.png#floatleft" alt="Sketch of me" width="256px" height="407.9px" class="transparent" >}}
 
 Hi!
 
@@ -14,6 +14,6 @@ Thanks for reading!
 
 {{< rawhtml >}}
 <a href="https://ko-fi.com/jibbow">
-    <img src="/images/ko-fi-red.png" alt="Buy me a coffee via ko-fi.com" width="180px"/>
+    <img src="/images/ko-fi-red.png" alt="Buy me a coffee via ko-fi.com" width="180px" height="34.65px"/>
 </a>
 {{< /rawhtml >}}
