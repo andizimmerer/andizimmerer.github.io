@@ -6,7 +6,7 @@ summary: "I had the pleasure the work on TiKV, a distributed key-value store in 
 
 
 {{< notice note >}}
-This blog post is also available on the [TiKV Blog](https://tikv.org/blog/lfx-2021-copr-v2/).
+This blog post is also available on the [TiKV blog](https://tikv.org/blog/lfx-2021-copr-v2/) and the [CNCF blog](https://www.cncf.io/blog/2021/07/26/mentorship-spotlight-looking-back-at-the-lfx-mentorship-program-spring-21-my-journey-to-becoming-a-tikv-contributor/?hss_channel=tw-3286770860).
 {{< /notice >}}
 
 I am a graduate student in the department of computer science at the Technical University of Munich (TUM), Germany.
