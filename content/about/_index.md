@@ -4,7 +4,7 @@ title: "About Me"
 
 {{< figure src="/about/sketch-small.png#floatleft" alt="Sketch of me" width="256px" height="407.9px" class="transparent" >}}
 
-Hi adventurer! I'm delighted you made it to one of these frightening and unmapped realms of the internet - so called "about" pages.
+Hi adventurer! I'm delighted you made it to one of these frightening and unmapped realms of the internet - a collection of articles on the topic of computerology.
 
 What brings you here, my dear little fella, in a such a dark and stormy night? Come - sit down next to the fireplace. Can I pour you a drink?
 
