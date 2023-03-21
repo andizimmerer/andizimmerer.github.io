@@ -1,12 +1,13 @@
 baseURL = "https://www.jibbow.com/"
 languageCode = "en-us"
-title = "Rather spend your time with something else..."
+title = "Andreas Zimmerer's Blog"
 
 theme = "jib"
 
 [params]
 author = "Andreas Zimmerer"
 description = "Jibbow's personal blog about programming and other weird stuff."
+headertitle = "Rather spend your time with something else..."
 
 [menu]
   [[menu.main]]
