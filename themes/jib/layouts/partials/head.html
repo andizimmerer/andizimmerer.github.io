@@ -11,6 +11,12 @@
 		<meta name="description" content="{{ .Summary }}">
 	{{- end }}
 
+	 <!-- Open Graph meta data -->
+	 <meta property="og:url" content="https://www.jibbow.com/">
+	 <meta property="og:type" content="website">
+	 <meta property="og:image" itemprop="image" content="https://www.jibbow.com/about/sketch-small.png">
+   
+
 	<title>{{- if .IsHome }}{{ .Site.Title }}{{- else }}{{ .Title }} &middot; {{ .Site.Title }}{{- end }}</title>
 
 	<!-- CSS -->
