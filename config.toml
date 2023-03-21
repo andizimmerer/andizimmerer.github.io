@@ -30,6 +30,11 @@ headertitle = "Rather spend your time with something else..."
 
 
 [[params.social]]
+title = "LinkedIn"
+icon = "ti-linkedin" # themify icon : https://themify.me/themify-icons
+link = "https://www.linkedin.com/in/andreas-zimmerer/"
+
+[[params.social]]
 title = "Follow me on Twitter"
 icon = "ti-twitter-alt" # themify icon : https://themify.me/themify-icons
 link = "https://twitter.com/_jibbow"
@@ -40,9 +45,14 @@ icon = "ti-github" # themify icon : https://themify.me/themify-icons
 link = "https://github.com/Jibbow"
 
 [[params.social]]
-title = "LinkedIn"
-icon = "ti-linkedin" # themify icon : https://themify.me/themify-icons
-link = "https://www.linkedin.com/in/andreas-zimmerer/"
+title = "Stack Overflow"
+icon = "ti-stack-overflow" # themify icon : https://themify.me/themify-icons
+link = "https://stackoverflow.com/users/4777124/jibbow"
+
+[[params.social]]
+title = "Instagram"
+icon = "ti-instagram" # themify icon : https://themify.me/themify-icons
+link = "https://www.instagram.com/andi.zimmerer"
 
 [[params.social]]
 title = "Subscribe via RSS"
