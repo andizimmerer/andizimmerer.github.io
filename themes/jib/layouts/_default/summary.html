@@ -1,7 +1,11 @@
-<a href="{{ .Permalink }}" class="catalogue-item">
+<a href={{ if isset .Params "external_link" }}{{ .Params.external_link }}{{else}}{{ .Permalink }}{{end}} class="catalogue-item">
     <div>
         <time datetime="{{ .PublishDate }}" class="catalogue-time">{{ i18n "publishdate" . }}</time>
-        <h1 class="catalogue-title">{{ .Title }}</h1>
+        <div class="catalogue-title-box">
+            <h1 class="catalogue-title">{{ .Title }}{{ if isset .Params "external_link" }}</h1>
+            <span class="catalogue-badge">external link</span> {{end}}
+        </div>
+        
         <div class="catalogue-line"></div>
 
         <p>
