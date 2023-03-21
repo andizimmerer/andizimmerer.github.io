@@ -10,6 +10,8 @@ description = "Jibbows' blog about computerology written and published by Andrea
 keywords = "Computers, Programming, Rust, C++, Systems"
 headertitle = "Rather spend your time with something else..."
 
+staticDir = ['static']
+
 [menu]
   [[menu.main]]
     identifier = "about"
