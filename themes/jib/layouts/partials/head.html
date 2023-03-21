@@ -2,6 +2,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="color-scheme" content="dark light">
+	<meta name="author" content="{{ .Site.Params.Author }}">
+	<meta name="keywords" content="{{ .Site.Params.Keywords }}">
+	<meta name="copyright" content="All rights reserved" />
 	{{- if .IsHome }}
 		<meta name="description" content="{{ .Site.Params.Description }}">
 	{{- else if .Summary }}
