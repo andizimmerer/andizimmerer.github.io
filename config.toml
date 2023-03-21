@@ -1,11 +1,11 @@
 baseURL = "https://www.jibbow.com/"
 languageCode = "en-us"
-title = "Jibbow's Blog"
+title = "Rather spend your time with something else..."
 
 theme = "jib"
 
 [params]
-author = "Andreas"
+author = "Andreas Zimmerer"
 description = "Jibbow's personal blog about programming and other weird stuff."
 
 [menu]

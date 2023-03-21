@@ -5,10 +5,8 @@ summary: "Quick tip on how to automatically generate flamegraphs for every Crite
 ---
 
 This is just a short post about something I recently discovered in the Rust ecosystem:
+How to automatically create flamegraphs for benchmarks written with `criterion` using the `pprof` crate.
 
-`Criterion` + `pprof` = 🔥
-
-If you have a Medium subscription and want to support me, you can [read this post on Medium][medium-post].
 
 
 ------
