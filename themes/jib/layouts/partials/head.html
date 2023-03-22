@@ -26,9 +26,9 @@
 	 {{- if .IsHome }}
 	 <meta property="og:image" itemprop="image" content="/{{ .Site.Params.Website.Preview_image }}">
 	 {{- else if .Params.Preview_image }}
-	 <meta property="og:image" itemprop="image" content="{{ .RelPermalink }}/{{ .Params.Preview_image }}">
+	 <meta property="og:image" itemprop="image" content="{{ .Site.BaseURL }}/{{ .RelPermalink }}/{{ .Params.Preview_image }}">
 	 {{- end }}
-   
+	
 
 	<title>{{- if .IsHome }}{{ .Site.Title }}{{- else }}{{ .Title }} &middot; {{ .Site.Title }}{{- end }}</title>
 
