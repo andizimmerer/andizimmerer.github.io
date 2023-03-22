@@ -24,9 +24,9 @@
 	 <meta property="og:url" content="{{ .Site.BaseURL }}">
 	 <meta property="og:type" content="website">
 	 {{- if .IsHome }}
-	 <meta property="og:image" itemprop="image" content="{{ .Site.Params.Website.Preview_image }}">
+	 <meta property="og:image" itemprop="image" content="/{{ .Site.Params.Website.Preview_image }}">
 	 {{- else if .Params.Preview_image }}
-	 <meta property="og:image" itemprop="image" content="{{ .Params.Preview_image }}">
+	 <meta property="og:image" itemprop="image" content="{{ .Site.BaseURL }}/{{ .Params.Preview_image }}">
 	 {{- end }}
    
 
