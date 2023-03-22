@@ -1,9 +1,12 @@
 <a href={{ if isset .Params "external_link" }}{{ .Params.external_link }}{{else}}{{ .Permalink }}{{end}} class="catalogue-item">
-    <div>
-        <time datetime="{{ .PublishDate }}" class="catalogue-time">{{ i18n "publishdate" . }}</time>
+    <div itemscope itemtype="https://schema.org/NewsArticle">
+        <time datetime="{{ .PublishDate }}" class="catalogue-time" itemprop="datePublished" content="{{ .PublishDate }}">{{ i18n "publishdate" . }}</time>
         <div class="catalogue-title-box">
-            <h1 class="catalogue-title">{{ .Title }}{{ if isset .Params "external_link" }}</h1>
-            <span class="catalogue-badge">external link</span> {{end}}
+            <h1 class="catalogue-title" itemprop="headline">{{ .Title }}
+                {{ if isset .Params "external_link" }}
+                    <span class="catalogue-badge">external link</span>
+                {{end}}
+            </h1>
         </div>
         
         <div class="catalogue-line"></div>

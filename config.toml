@@ -1,15 +1,23 @@
 baseURL = "https://www.jibbow.com/"
-languageCode = "en-us"
 title = "Jibbow's Blog (by Andreas Zimmerer)"
-
+languageCode = "en-us"
+googleAnalytics = "UA-165398559-1"
 theme = "jib"
 
+
 [params]
+
+# Config options about the website itself, used mostly to generate meta information about the blog.
+[params.website]
 author = "Andreas Zimmerer"
 description = "Jibbows' blog about computerology written and published by Andreas Zimmerer."
 keywords = "Computers, Programming, Rust, C++, Systems"
 headertitle = "Rather spend your time with something else..."
+preview_image = "site_preview_image.jpg"
 
+
+# directory containing static resources that are published as-is.
+# Available under https://www.jibbow.com/<filename>
 staticDir = ['static']
 
 [menu]

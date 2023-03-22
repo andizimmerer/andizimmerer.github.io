@@ -2,19 +2,32 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="color-scheme" content="dark light">
-	<meta name="author" content="{{ .Site.Params.Author }}">
-	<meta name="keywords" content="{{ .Site.Params.Keywords }}">
 	<meta name="copyright" content="All rights reserved" />
+
 	{{- if .IsHome }}
-		<meta name="description" content="{{ .Site.Params.Description }}">
-	{{- else if .Summary }}
-		<meta name="description" content="{{ .Summary }}">
+	<meta name="author" content="{{ .Site.Params.Website.Author }}">
+	{{- else if .Params.Author }}
+	<meta name="author" content="{{ .Params.Author }}">
+	{{- end }}
+	{{- if .IsHome }}
+	<meta name="description" content="{{ .Site.Params.Website.Description }}">
+	{{- else if .Params.Summary }}
+	<meta name="description" content="{{ .Params.Summary }}">
+	{{- end }}
+	{{- if .IsHome }}
+	<meta name="keywords" content="{{ .Site.Params.Website.Keywords }}">
+	{{- else if .Params.Keywords }}
+	<meta name="keywords" content="{{ .Params.Keywords }}">
 	{{- end }}
 
 	 <!-- Open Graph meta data -->
-	 <meta property="og:url" content="https://www.jibbow.com/">
+	 <meta property="og:url" content="{{ .Site.BaseURL }}">
 	 <meta property="og:type" content="website">
-	 <meta property="og:image" itemprop="image" content="https://www.jibbow.com/site_preview_image.jpg">
+	 {{- if .IsHome }}
+	 <meta property="og:image" itemprop="image" content="{{ .Site.Params.Website.Preview_image }}">
+	 {{- else if .Params.Preview_image }}
+	 <meta property="og:image" itemprop="image" content="{{ .Params.Preview_image }}">
+	 {{- end }}
    
 
 	<title>{{- if .IsHome }}{{ .Site.Title }}{{- else }}{{ .Title }} &middot; {{ .Site.Title }}{{- end }}</title>
@@ -46,14 +59,16 @@
     	{{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 	{{ end -}}
 
+	{{- if .Site.GoogleAnalytics }}
 	<!-- Google Analytics -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-165398559-1"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.GoogleAnalytics }}"></script>
 	<script>
 		window.dataLayer = window.dataLayer || [];
 		function gtag(){dataLayer.push(arguments);}
 		gtag('js', new Date());
 
-		gtag('config', 'UA-165398559-1');
+		gtag('config', '{{ .Site.GoogleAnalytics }}');
 	</script>
+	{{- end }}
 
 </head>

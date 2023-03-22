@@ -1,7 +1,10 @@
 ---
+author: "Andreas Zimmerer"
 title: "Automatic Flamegraphs for Benchmarks in Rust"
 date: 2021-01-22
 summary: "Quick tip on how to automatically generate flamegraphs for every Criterion benchmark with pprof and in-process profiling hooks."
+keywords: "Rust, Benchmarking, Flamegraph"
+preview_image: /flamegraph.svg
 ---
 
 This is just a short post about something I recently discovered in the Rust ecosystem:
