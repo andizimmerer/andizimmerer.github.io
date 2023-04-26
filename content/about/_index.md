@@ -20,6 +20,14 @@ Besides that, I have an abundance of cute little green friends at home and I lov
 Cheers!
 
 
+## Talks and Presentations
+
+  * ["How to Become a Contributor to Big Open-Source Communities"](https://gdsc.community.dev/events/details/developer-student-clubs-technical-university-of-munich-presents-how-to-become-a-contributor-to-big-open-source-communities/) at the Google Developer Student Club Munich, 2021
+  * ["A Hitchhiker's Guide to WebAssembly"](https://gdsc.community.dev/events/details/developer-student-clubs-technical-university-of-munich-presents-a-hitchhikers-guide-to-webassembly/) at the Google Developer Student Club Munich, 2020
+  * ["The Most Efficient Electric Vehicle in the World"](https://www.tngtech.com/en/tng-about-us/bigtechday/big-techday-10/abstracts.html#c15124) at the TNG Big Tech Day, 2017
+
+
+
 
 {{< rawhtml >}}
 <a href="https://ko-fi.com/jibbow">
