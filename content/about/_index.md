@@ -22,6 +22,7 @@ Cheers!
 
 ## Talks and Presentations
 
+  * ["Industry vs. Research DBMS: Exploring Key Differences]("https://www.uni-augsburg.de/de/fakultaet/fai/isse/news/gastvortrag-industry-vs-research-dbms-exploring-key-differences/") at the Elite Graduate Program at University of Augsburg, 2023
   * ["How to Become a Contributor to Big Open-Source Communities"](https://gdsc.community.dev/events/details/developer-student-clubs-technical-university-of-munich-presents-how-to-become-a-contributor-to-big-open-source-communities/) at the Google Developer Student Club Munich, 2021
   * ["A Hitchhiker's Guide to WebAssembly"](https://gdsc.community.dev/events/details/developer-student-clubs-technical-university-of-munich-presents-a-hitchhikers-guide-to-webassembly/) at the Google Developer Student Club Munich, 2020
   * ["The Most Efficient Electric Vehicle in the World"](https://www.tngtech.com/en/tng-about-us/bigtechday/big-techday-10/abstracts.html#c15124) at the TNG Big Tech Day, 2017
