@@ -1,5 +1,5 @@
-baseURL = "https://www.jibbow.com/"
-title = "Jibbow's Blog (by Andreas Zimmerer)"
+baseURL = "https://andizimmerer.github.io/"
+title = "Andi Zimmerer"
 languageCode = "en-us"
 googleAnalytics = "UA-165398559-1"
 theme = "jib"
@@ -9,10 +9,10 @@ theme = "jib"
 
 # Config options about the website itself, used mostly to generate meta information about the blog.
 [params.website]
-author = "Andreas Zimmerer"
-description = "Jibbows' blog about computerology written and published by Andreas Zimmerer."
-keywords = "Computers, Programming, Rust, C++, Systems"
-headertitle = "Rather spend your time with something else..."
+author = "Andi Zimmerer"
+description = "Technical explorations of database systems research, focusing on architecture, optimization, and system design through the lens of doctoral research."
+keywords = "Databases, Data Warehouses, Systems Programming, Rust, C++"
+headertitle = "Database Systems Research"
 preview_image = "site_preview_image.jpg"
 
 
@@ -42,27 +42,17 @@ staticDir = ['static']
 [[params.social]]
 title = "LinkedIn"
 icon = "ti-linkedin" # themify icon : https://themify.me/themify-icons
-link = "https://www.linkedin.com/in/andreas-zimmerer/"
+link = "https://www.linkedin.com/in/andi-zimmerer/"
 
 [[params.social]]
-title = "Follow me on Twitter"
+title = "Let's use Bluesky from now on"
 icon = "ti-twitter-alt" # themify icon : https://themify.me/themify-icons
-link = "https://twitter.com/_jibbow"
+link = "https://bsky.app/profile/andizimmerer.bsky.social"
 
 [[params.social]]
 title = "GitHub"
 icon = "ti-github" # themify icon : https://themify.me/themify-icons
-link = "https://github.com/Jibbow"
-
-[[params.social]]
-title = "Stack Overflow"
-icon = "ti-stack-overflow" # themify icon : https://themify.me/themify-icons
-link = "https://stackoverflow.com/users/4777124/jibbow"
-
-[[params.social]]
-title = "Instagram"
-icon = "ti-instagram" # themify icon : https://themify.me/themify-icons
-link = "https://www.instagram.com/andi.zimmerer"
+link = "https://github.com/andizimmerer"
 
 [[params.social]]
 title = "Subscribe via RSS"
