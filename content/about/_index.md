@@ -29,9 +29,15 @@ Cheers!
 
 
 
+Places you'll find my name:
+ - https://people.csail.mit.edu/kipf/cv.pdf
+ - Testimonial: https://careers.snowflake.com/us/en/berlin-germany
+ - https://tufast-eco.de/?page_id=785&lang=de
+ - https://tufast-eco.de/?page_id=788
+ - https://tufast-eco.de/?page_id=787&lang=de
+ - https://medium.com/googledeveloperseurope/organizing-a-dsc-solution-challenge-kickoff-dsc-munich-7c4942b91f6e
+ - https://github.com/Ciruman/QuarkFX
+ - https://www.cncf.io/blog/2021/07/13/spring-term-lfx-program-largest-graduating-class-with-28-successful-cncf-interns/
+ - https://www.elitenetzwerk.bayern.de/en/home/active-network/events
+ - https://elite-se.informatik.uni-augsburg.de/guest-lecture-by-andreas-zimmerer-from-snowflake-1-6-2023/
 
-{{< rawhtml >}}
-<a href="https://ko-fi.com/jibbow">
-    <img src="/images/ko-fi-red.png" alt="Buy me a coffee via ko-fi.com" width="180px" height="34.65px"/>
-</a>
-{{< /rawhtml >}}
